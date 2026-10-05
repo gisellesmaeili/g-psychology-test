@@ -268,7 +268,7 @@
             const options = Array.from( qRow.querySelectorAll( '.gpt-options-list .gpt-option-item' ) ).map( ( oRow, oi ) => ( {
                 id:        parseInt( oRow.dataset.oid, 10 ) || 0,
                 label:     oRow.querySelector( '.opt-label' )?.value.trim(),
-                score:     parseInt( oRow.querySelector( '.opt-score' )?.value, 10 ) || 1,
+                score:     ( () => { const s = parseInt( oRow.querySelector( '.opt-score' )?.value, 10 ); return isNaN(s) ? 1 : s; } )(),
                 sort_order:oi,
             } ) ).filter( o => o.label );
 

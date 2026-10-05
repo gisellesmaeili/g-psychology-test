@@ -46,6 +46,15 @@ final class GPT_Plugin {
 
         // Admin
         if ( is_admin() ) {
+            add_action( 'admin_init', function() {
+                global $wpdb;
+                $p = $wpdb->prefix;
+                $row = $wpdb->get_row( "SHOW COLUMNS FROM {$p}gpt_questions LIKE 'component'" );
+                if ( ! $row ) {
+                    $wpdb->query( "ALTER TABLE {$p}gpt_questions ADD COLUMN component VARCHAR(100) NOT NULL DEFAULT '' AFTER question" );
+                }
+            } );
+
             require_once GPT_DIR . 'includes/admin/class-csv-export.php';
             require_once GPT_DIR . 'includes/admin/class-users-list.php';
             require_once GPT_DIR . 'includes/admin/class-quiz-manager.php';

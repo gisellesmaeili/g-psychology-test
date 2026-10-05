@@ -3,7 +3,7 @@
  * Plugin Name:       آزمون‌های روانشناسی دکتر دوزنده
  * Plugin URI:        https://drdouzandeh.com
  * Description:       پلاگین آزمون‌های روانشناسی با مدیریت کامل سوالات، نمایش نتایج تحلیلی و پنل ادمین حرفه‌ای
- * Version:           1.0.1
+ * Version:           1.0.3
  * Author:            Giselle Esmaeili
  * Author URI:        https://www.linkedin.com/in/qazal-esmaeili-developer
  * Text Domain:       g-psychology-tests
@@ -17,11 +17,11 @@ declare( strict_types = 1 );
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'GPT_VERSION', '1.0.1' );
+define( 'GPT_VERSION', '1.0.3' );
 define( 'GPT_FILE',    __FILE__ );
 define( 'GPT_DIR',     plugin_dir_path( __FILE__ ) );
 define( 'GPT_URL',     plugin_dir_url( __FILE__ ) );
-define( 'GPT_DB_VER',  '1.0.1' );
+define( 'GPT_DB_VER',  '1.0.3' );
 
 spl_autoload_register( static function ( string $class ): void {
     if ( ! str_starts_with( $class, 'GPT_' ) ) {
