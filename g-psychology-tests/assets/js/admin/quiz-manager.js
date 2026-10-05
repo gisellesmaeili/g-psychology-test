@@ -146,7 +146,7 @@
 
         // Populate components
         const compList  = editorEl.querySelector( '#eq-components' );
-        const compData  = JSON.parse( quiz?.components ?? '[]' );
+        const compData  = Array.isArray( quiz?.components_data ) ? quiz.components_data : [];
         compData.forEach( c => addComponentRow( compList, c ) );
 
         // Populate questions
@@ -192,11 +192,22 @@
         qRow.className = 'gpt-question-item';
         qRow.dataset.qid = q.id ?? '';
 
+        // Build component options from editor components
+        const compOpts = Array.from(
+            document.querySelectorAll( '.comp-label' )
+        ).map( el => {
+            const val = el.value.trim();
+            return val ? `<option value="${ esc( val ) }" ${ val === q.component ? 'selected' : '' }>${ esc( val ) }</option>` : '';
+        } ).join( '' );
+
         qRow.innerHTML = `
-            <div class="gpt-question-header">
+            <div class="gpt-question-header" style="display:flex;gap:8px;align-items:center;">
                 <span class="gpt-drag-handle" title="جابجایی">${ ICON.grip }</span>
-                <textarea class="gpt-editor-textarea gpt-q-text" rows="2"
+                <textarea class="gpt-editor-textarea gpt-q-text" rows="2" style="flex:2;"
                     placeholder="متن سوال را بنویسید...">${ esc( q.question ?? '' ) }</textarea>
+                <select class="gpt-editor-select opt-comp" style="width:120px;" aria-label="مؤلفه">
+                    <option value="">مؤلفه</option>${ compOpts }
+                </select>
                 <button class="gpt-admin-btn gpt-admin-btn-icon gpt-admin-btn-danger" type="button"
                     onclick="this.closest('.gpt-question-item').remove()" aria-label="حذف سوال">
                     ${ ICON.trash }
@@ -220,20 +231,9 @@
         row.className   = 'gpt-option-item';
         row.dataset.oid = opt.id ?? '';
 
-        // Build component options from editor components
-        const compOpts = Array.from(
-            document.querySelectorAll( '.comp-label' )
-        ).map( el => {
-            const val = el.value.trim();
-            return val ? `<option value="${ esc( val ) }" ${ val === opt.component ? 'selected' : '' }>${ esc( val ) }</option>` : '';
-        } ).join( '' );
-
         row.innerHTML = `
             <span class="gpt-drag-handle">${ ICON.grip }</span>
             <input class="gpt-editor-input opt-label" type="text" placeholder="متن گزینه" value="${ esc( opt.label ?? '' ) }" style="flex:2;">
-            <select class="gpt-editor-select opt-comp" style="flex:1;" aria-label="مؤلفه">
-                <option value="">مؤلفه</option>${ compOpts }
-            </select>
             <input class="gpt-editor-input opt-score" type="number" placeholder="امتیاز" value="${ opt.score ?? 1 }" style="width:70px;" min="0">
             <button class="gpt-admin-btn gpt-admin-btn-icon gpt-admin-btn-danger" type="button"
                 onclick="this.closest('.gpt-option-item').remove()" aria-label="حذف گزینه">
@@ -268,7 +268,6 @@
             const options = Array.from( qRow.querySelectorAll( '.gpt-options-list .gpt-option-item' ) ).map( ( oRow, oi ) => ( {
                 id:        parseInt( oRow.dataset.oid, 10 ) || 0,
                 label:     oRow.querySelector( '.opt-label' )?.value.trim(),
-                component: oRow.querySelector( '.opt-comp'  )?.value,
                 score:     parseInt( oRow.querySelector( '.opt-score' )?.value, 10 ) || 1,
                 sort_order:oi,
             } ) ).filter( o => o.label );
@@ -276,6 +275,7 @@
             return {
                 id:         qid,
                 question:   qRow.querySelector( '.gpt-q-text' )?.value.trim(),
+                component:  qRow.querySelector( '.opt-comp' )?.value,
                 sort_order: qi,
                 options,
             };

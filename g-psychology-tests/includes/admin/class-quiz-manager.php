@@ -34,8 +34,9 @@ class GPT_Quiz_Manager {
         $instructions= wp_kses_post( $_POST['instructions'] ?? '' );
         $slug        = sanitize_title( $_POST['slug'] ?? $title );
         $status      = in_array( $_POST['status'] ?? '', [ 'active', 'draft' ], true ) ? $_POST['status'] : 'active';
-        $components  = $_POST['components'] ?? '[]';
-        $questions   = json_decode( stripslashes( $_POST['questions'] ?? '[]' ), true );
+        $components_raw = $_POST['components'] ?? '[]';
+        $components     = is_string( $components_raw ) ? wp_json_encode( json_decode( stripslashes( $components_raw ), true ) ?: [] ) : '[]';
+        $questions      = json_decode( stripslashes( $_POST['questions'] ?? '[]' ), true );
 
         if ( ! $title ) {
             wp_send_json_error( [ 'message' => 'عنوان آزمون الزامی است.' ] );
@@ -47,7 +48,7 @@ class GPT_Quiz_Manager {
             'description'  => $description,
             'instructions' => $instructions,
             'slug'         => $slug,
-            'components'   => is_string( $components ) ? $components : wp_json_encode( $components ),
+            'components'   => $components,
             'status'       => $status,
         ];
         $quiz_fmt = [ '%s', '%s', '%s', '%s', '%s', '%s' ];
@@ -174,7 +175,7 @@ class GPT_Quiz_Manager {
     /**
      * Sync questions array to DB (full replace strategy per quiz).
      *
-     * @param list<array{id?:int,question:string,sort_order:int,options:list<array>}> $questions
+     * @param list<array{id?:int,question:string,component:string,sort_order:int,options:list<array>}> $questions
      */
     private function sync_questions( int $quiz_id, array $questions ): void {
         global $wpdb;
@@ -206,19 +207,20 @@ class GPT_Quiz_Manager {
             if ( ! $q_text ) continue;
 
             $q_id = (int) ( $q['id'] ?? 0 );
+            $comp = sanitize_text_field( $q['component'] ?? '' );
 
             if ( $q_id ) {
                 $wpdb->update(
                     "{$p}gpt_questions",
-                    [ 'question' => $q_text, 'sort_order' => $sort ],
+                    [ 'question' => $q_text, 'component' => $comp, 'sort_order' => $sort ],
                     [ 'id' => $q_id ],
-                    [ '%s', '%d' ], [ '%d' ]
+                    [ '%s', '%s', '%d' ], [ '%d' ]
                 );
             } else {
                 $wpdb->insert(
                     "{$p}gpt_questions",
-                    [ 'quiz_id' => $quiz_id, 'question' => $q_text, 'sort_order' => $sort ],
-                    [ '%d', '%s', '%d' ]
+                    [ 'quiz_id' => $quiz_id, 'question' => $q_text, 'component' => $comp, 'sort_order' => $sort ],
+                    [ '%d', '%s', '%s', '%d' ]
                 );
                 $q_id = (int) $wpdb->insert_id;
             }
@@ -245,14 +247,13 @@ class GPT_Quiz_Manager {
 
         foreach ( $options as $sort => $opt ) {
             $label     = sanitize_text_field( $opt['label']     ?? '' );
-            $component = sanitize_text_field( $opt['component'] ?? '' );
             $score     = (int) ( $opt['score'] ?? 1 );
             $opt_id    = (int) ( $opt['id']    ?? 0 );
 
             if ( ! $label ) continue;
 
-            $data = [ 'label' => $label, 'component' => $component, 'score' => $score, 'sort_order' => $sort ];
-            $fmt  = [ '%s', '%s', '%d', '%d' ];
+            $data = [ 'label' => $label, 'score' => $score, 'sort_order' => $sort ];
+            $fmt  = [ '%s', '%d', '%d' ];
 
             if ( $opt_id ) {
                 $wpdb->update( "{$p}gpt_options", $data, [ 'id' => $opt_id ], $fmt, [ '%d' ] );

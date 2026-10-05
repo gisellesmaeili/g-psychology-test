@@ -36,6 +36,7 @@ class GPT_Activator {
             id          BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             quiz_id     BIGINT UNSIGNED NOT NULL,
             question    LONGTEXT        NOT NULL,
+            component   VARCHAR(100)    NOT NULL DEFAULT '',
             sort_order  INT             NOT NULL DEFAULT 0,
             KEY idx_quiz (quiz_id),
             KEY idx_sort (quiz_id, sort_order)
@@ -45,7 +46,6 @@ class GPT_Activator {
             id          BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             question_id BIGINT UNSIGNED NOT NULL,
             label       TEXT            NOT NULL,
-            component   VARCHAR(100)    NOT NULL DEFAULT '',
             score       TINYINT         NOT NULL DEFAULT 1,
             sort_order  INT             NOT NULL DEFAULT 0,
             KEY idx_question (question_id)

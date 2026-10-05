@@ -48,7 +48,7 @@ class GPT_Test_Engine {
 
         $questions = $wpdb->get_results(
             $wpdb->prepare(
-                "SELECT id, question, sort_order
+                "SELECT id, question, component, sort_order
                  FROM {$wpdb->prefix}gpt_questions
                  WHERE quiz_id = %d
                  ORDER BY sort_order ASC, id ASC",
@@ -67,7 +67,7 @@ class GPT_Test_Engine {
         // phpcs:ignore WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
         $options = $wpdb->get_results(
             $wpdb->prepare(
-                "SELECT id, question_id, label, component, score, sort_order
+                "SELECT id, question_id, label, score, sort_order
                  FROM {$wpdb->prefix}gpt_options
                  WHERE question_id IN ($placeholders)
                  ORDER BY question_id, sort_order ASC, id ASC",
@@ -158,7 +158,7 @@ class GPT_Test_Engine {
         global $wpdb;
         $rows = $wpdb->get_results(
             $wpdb->prepare(
-                "SELECT o.id, o.component, o.score
+                "SELECT o.id, q.component, o.score
                  FROM {$wpdb->prefix}gpt_options o
                  INNER JOIN {$wpdb->prefix}gpt_questions q ON q.id = o.question_id
                  WHERE q.quiz_id = %d",
