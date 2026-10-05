@@ -109,7 +109,7 @@ class GPT_Quiz_Manager {
         $this->verify_nonce( 'gpt_quiz_nonce' );
 
         $engine = new GPT_Test_Engine();
-        $id     = (int) ( $_GET['id'] ?? 0 );
+        $id     = (int) ( $_REQUEST['id'] ?? 0 );
 
         $quiz = $engine->get_quiz( $id );
         if ( ! $quiz ) {

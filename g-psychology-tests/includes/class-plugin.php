@@ -19,7 +19,7 @@ final class GPT_Plugin {
     }
 
     public function run(): void {
-        add_action( 'plugins_loaded', [ $this, 'load_textdomain' ] );
+        add_action( 'init', [ $this, 'load_textdomain' ] );
         add_action( 'plugins_loaded', [ $this, 'init_components' ] );
     }
 

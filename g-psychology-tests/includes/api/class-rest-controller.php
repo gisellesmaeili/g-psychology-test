@@ -196,7 +196,7 @@ class GPT_Rest_Controller {
 
     // ── Helpers ────────────────────────────────────────────────────────────
 
-    private function check_rate_limit(): true|WP_Error {
+    private function check_rate_limit(): bool | WP_Error {
         $ip  = $this->get_ip();
         $key = 'gpt_rl_' . md5( $ip );
         $count = (int) get_transient( $key );
