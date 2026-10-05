@@ -1,0 +1,363 @@
+/* ==========================================================================
+   G-Psychology Tests — Admin CSS
+   Design: matches brand (#910019, IRANYekanX), RTL
+   ========================================================================== */
+
+:root {
+    --gpt-action:       #910019;
+    --gpt-action-hover: #6e0013;
+    --gpt-action-fg:    #ffffff;
+    --gpt-text:         #1a1c1b;
+    --gpt-text-muted:   #5a403f;
+    --gpt-surface:      #ffffff;
+    --gpt-border:       #e2d9d9;
+    --gpt-radius:       10px;
+    --gpt-font:         'IRANYekanX', system-ui, sans-serif;
+}
+
+/* ── Wrap ── */
+.gpt-admin-wrap {
+    font-family: var(--gpt-font);
+    direction: rtl;
+    text-align: right;
+    color: var(--gpt-text);
+    max-width: 1440px;
+    width: 100%;
+}
+
+.gpt-admin-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 24px;
+    color: var(--gpt-text);
+}
+
+.gpt-title-icon { color: var(--gpt-action); }
+
+/* ── Toolbar ── */
+.gpt-admin-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    padding: 16px 20px;
+    background: var(--gpt-surface);
+    border: 1px solid var(--gpt-border);
+    border-radius: var(--gpt-radius);
+}
+
+.gpt-toolbar-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 200px;
+    color: var(--gpt-text-muted);
+}
+
+.gpt-search-input {
+    flex: 1;
+    padding: 9px 14px;
+    border: 1.5px solid var(--gpt-border);
+    border-radius: var(--gpt-radius);
+    font-family: var(--gpt-font);
+    font-size: 14px;
+    direction: rtl;
+    text-align: right;
+    color: var(--gpt-text);
+    background: #faf5f5;
+    transition: border-color .15s;
+}
+
+.gpt-search-input:focus {
+    outline: none;
+    border-color: var(--gpt-action);
+    box-shadow: 0 0 0 3px rgba(145,0,25,.1);
+}
+
+.gpt-select-filter {
+    padding: 9px 14px;
+    border: 1.5px solid var(--gpt-border);
+    border-radius: var(--gpt-radius);
+    font-family: var(--gpt-font);
+    font-size: 14px;
+    direction: rtl;
+    text-align: right;
+    background: #faf5f5;
+    color: var(--gpt-text);
+    cursor: pointer;
+}
+
+/* ── Buttons ── */
+.gpt-admin-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border: 1.5px solid transparent;
+    border-radius: var(--gpt-radius);
+    font-family: var(--gpt-font);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, transform .12s, box-shadow .15s;
+    text-decoration: none;
+    white-space: nowrap;
+    min-height: 40px;
+}
+
+.gpt-admin-btn:hover { text-decoration: none; }
+
+.gpt-admin-btn-primary {
+    background: var(--gpt-action);
+    color: var(--gpt-action-fg);
+    border-color: var(--gpt-action);
+    box-shadow: 0 2px 8px rgba(145,0,25,.2);
+}
+
+.gpt-admin-btn-primary:hover {
+    background: var(--gpt-action-hover);
+    transform: translateY(-1px);
+    color: var(--gpt-action-fg);
+}
+
+.gpt-admin-btn-secondary {
+    background: #faf5f5;
+    color: var(--gpt-text-muted);
+    border-color: var(--gpt-border);
+}
+
+.gpt-admin-btn-secondary:hover {
+    border-color: var(--gpt-action);
+    color: var(--gpt-action);
+    background: rgba(145,0,25,.04);
+}
+
+.gpt-admin-btn-icon {
+    padding: 7px;
+    background: transparent;
+    border-color: var(--gpt-border);
+    color: var(--gpt-text-muted);
+    min-height: 34px;
+}
+
+.gpt-admin-btn-icon:hover {
+    color: var(--gpt-action);
+    border-color: var(--gpt-action);
+    background: rgba(145,0,25,.05);
+}
+
+.gpt-admin-btn-danger { color: #dc2626; border-color: rgba(220,38,38,.3); }
+.gpt-admin-btn-danger:hover { background: rgba(220,38,38,.06); }
+
+/* ── List ── */
+.gpt-list-header,
+.gpt-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+}
+
+.gpt-list-header {
+    background: #f5eeee;
+    border-radius: var(--gpt-radius) var(--gpt-radius) 0 0;
+    border: 1px solid var(--gpt-border);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gpt-text-muted);
+}
+
+.gpt-user-card {
+    background: var(--gpt-surface);
+    border: 1px solid var(--gpt-border);
+    border-top: none;
+    transition: background .12s;
+}
+
+.gpt-user-card:hover { background: #faf5f5; }
+
+.gpt-user-card:last-child { border-radius: 0 0 var(--gpt-radius) var(--gpt-radius); }
+
+/* Columns */
+.gpt-col-name    { flex: 2; min-width: 130px; font-size: 14px; }
+.gpt-col-phone   { flex: 1.5; min-width: 110px; font-size: 13px; direction: ltr; text-align: right; }
+.gpt-col-quiz    { flex: 2; font-size: 13px; }
+.gpt-col-score   { flex: 1; text-align: center; font-weight: 700; font-size: 14px; }
+.gpt-col-date    { flex: 1.5; font-size: 12px; color: var(--gpt-text-muted); }
+.gpt-col-actions { flex: 1; display: flex; gap: 6px; justify-content: flex-end; }
+
+/* Empty / loading */
+.gpt-list-empty {
+    text-align: center;
+    padding: 48px;
+    color: var(--gpt-text-muted);
+    font-size: 15px;
+    border: 1px solid var(--gpt-border);
+    border-top: none;
+    background: var(--gpt-surface);
+}
+
+.gpt-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 48px;
+    color: var(--gpt-text-muted);
+}
+
+.gpt-admin-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2.5px solid var(--gpt-border);
+    border-top-color: var(--gpt-action);
+    border-radius: 50%;
+    display: inline-block;
+    animation: gptSpin .6s linear infinite;
+}
+
+@keyframes gptSpin { to { transform: rotate(360deg); } }
+
+/* ── Pagination ── */
+.gpt-pager {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 4px;
+    font-size: 14px;
+    color: var(--gpt-text-muted);
+}
+
+.gpt-pager-current { font-weight: 700; color: var(--gpt-text); }
+
+/* ── Quiz Manager ── */
+.gpt-quiz-list { margin-top: 16px; }
+
+.gpt-quiz-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: var(--gpt-surface);
+    border: 1px solid var(--gpt-border);
+    border-radius: var(--gpt-radius);
+    margin-bottom: 8px;
+    transition: box-shadow .15s;
+}
+
+.gpt-quiz-item:hover { box-shadow: 0 2px 12px rgba(145,0,25,.08); }
+
+.gpt-quiz-item-title { flex: 1; font-weight: 700; font-size: 15px; }
+.gpt-quiz-item-meta  { font-size: 13px; color: var(--gpt-text-muted); }
+
+/* Editor panels */
+.gpt-editor-wrap {
+    background: var(--gpt-surface);
+    border: 1px solid var(--gpt-border);
+    border-radius: var(--gpt-radius);
+    padding: 28px;
+    margin-top: 16px;
+}
+
+.gpt-editor-section { margin-bottom: 28px; }
+
+.gpt-editor-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 7px;
+    color: var(--gpt-text);
+}
+
+.gpt-editor-input,
+.gpt-editor-textarea,
+.gpt-editor-select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 14px;
+    border: 1.5px solid var(--gpt-border);
+    border-radius: 8px;
+    font-family: var(--gpt-font);
+    font-size: 14px;
+    direction: rtl;
+    text-align: right;
+    color: var(--gpt-text);
+    background: #faf5f5;
+    transition: border-color .15s;
+}
+
+.gpt-editor-input:focus,
+.gpt-editor-textarea:focus {
+    outline: none;
+    border-color: var(--gpt-action);
+    box-shadow: 0 0 0 3px rgba(145,0,25,.08);
+}
+
+/* Question items */
+.gpt-question-item {
+    background: #faf5f5;
+    border: 1.5px solid var(--gpt-border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.gpt-question-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.gpt-drag-handle {
+    color: var(--gpt-text-muted);
+    cursor: grab;
+    padding: 4px;
+    line-height: 0;
+}
+
+.gpt-drag-handle:active { cursor: grabbing; }
+
+.gpt-option-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-top: 1px solid var(--gpt-border);
+}
+
+/* ── Notices ── */
+.gpt-admin-notice {
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid;
+    margin-bottom: 14px;
+}
+
+.gpt-admin-notice-error   { color: #dc2626; border-color: rgba(220,38,38,.3); background: rgba(220,38,38,.05); }
+.gpt-admin-notice-success { color: #059669; border-color: rgba(5,150,105,.3); background: rgba(5,150,105,.05); }
+
+/* ── Responsive (admin) ── */
+@media (max-width: 1023px) {
+    .gpt-col-date, .gpt-col-quiz { display: none; }
+}
+
+@media (max-width: 767px) {
+    .gpt-row {
+        flex-wrap: wrap;
+    }
+    .gpt-col-name    { flex: 1 1 100%; }
+    .gpt-col-phone   { flex: 1 1 50%; }
+    .gpt-col-score   { flex: 1 1 30%; }
+    .gpt-col-actions { flex: 1 1 auto; }
+
+    .gpt-admin-toolbar { gap: 8px; }
+    .gpt-toolbar-search { min-width: 100%; }
+}

@@ -1,0 +1,655 @@
+/* ==========================================================================
+   G-Psychology Tests — Frontend CSS
+   Design: IRANYekanX · #910019 action · RTL · 1440px max
+   ========================================================================== */
+
+/* ── 1. Design Tokens ─────────────────────────────────────────────────────── */
+.gpt-wrap {
+    --color-action:        #910019;
+    --color-action-hover:  #6e0013;
+    --color-action-fg:     #ffffff;
+    --color-text:          #1a1c1b;
+    --color-text-muted:    #5a403f;
+    --color-text-subtle:   #8e706e;
+    --color-bg:            #faf5f5;
+    --color-surface:       #ffffff;
+    --color-border:        #e8dede;
+    --color-success:       #059669;
+    --color-error:         #dc2626;
+
+    --font-primary:        'IRANYekanX', 'Pinar', system-ui, sans-serif;
+    --fw-regular:          400;
+    --fw-medium:           500;
+    --fw-semibold:         600;
+    --fw-bold:             700;
+    --fw-extrabold:        800;
+
+    --fs-body:             16px;
+    --fs-heading:          18px;
+    --fs-control:          15px;
+    --lh-body:             1.75;
+
+    --radius-control:      12px;
+    --radius-card:         16px;
+    --radius-full:         9999px;
+
+    --shadow-card:         0 2px 16px rgba(145,0,25,.08), 0 1px 4px rgba(0,0,0,.06);
+    --shadow-elevated:     0 8px 32px rgba(145,0,25,.14), 0 2px 8px rgba(0,0,0,.08);
+
+    --dur-fast:            150ms;
+    --dur-base:            250ms;
+    --dur-slow:            400ms;
+    --ease-out:            cubic-bezier(.22,1,.36,1);
+
+    /* Chart palette */
+    --chart-1: #910019; --chart-2: #c0395a; --chart-3: #d97706;
+    --chart-4: #059669; --chart-5: #5a403f; --chart-6: #8e706e;
+}
+
+/* ── 2. Container ─────────────────────────────────────────────────────────── */
+.gpt-wrap {
+    direction: rtl;
+    text-align: right;
+    font-family: var(--font-primary);
+    font-size: var(--fs-body);
+    font-weight: var(--fw-regular);
+    line-height: var(--lh-body);
+    color: var(--color-text);
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
+    box-sizing: border-box;
+    background: var(--color-bg);
+}
+
+/* ── 3. Quiz Header ───────────────────────────────────────────────────────── */
+.gpt-quiz-header {
+    padding: 48px 0 32px;
+    text-align: center;
+}
+
+.gpt-quiz-title {
+    font-size: 28px;
+    font-weight: var(--fw-extrabold);
+    color: var(--color-text);
+    margin: 0 0 12px;
+    line-height: 1.4;
+}
+
+.gpt-quiz-desc {
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto 32px;
+}
+
+/* ── 4. Progress Bar ──────────────────────────────────────────────────────── */
+.gpt-progress-wrap {
+    max-width: 600px;
+    margin: 0 auto 40px;
+}
+
+.gpt-progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--color-text-muted);
+    margin-bottom: 8px;
+}
+
+.gpt-progress-track {
+    height: 6px;
+    background: var(--color-border);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.gpt-progress-fill {
+    height: 100%;
+    background: var(--color-action);
+    border-radius: var(--radius-full);
+    transition: width var(--dur-slow) var(--ease-out);
+    min-width: 4px;
+}
+
+/* ── 5. Question Card ─────────────────────────────────────────────────────── */
+.gpt-question-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    padding: 36px 40px;
+    max-width: 700px;
+    margin: 0 auto 24px;
+    transition: box-shadow var(--dur-base) var(--ease-out);
+}
+
+.gpt-question-text {
+    font-size: 18px;
+    font-weight: var(--fw-semibold);
+    line-height: 1.6;
+    margin-bottom: 28px;
+    color: var(--color-text);
+}
+
+/* ── 6. Options (radio group) ─────────────────────────────────────────────── */
+.gpt-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.gpt-option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-control);
+    cursor: pointer;
+    transition:
+        border-color var(--dur-fast) var(--ease-out),
+        background   var(--dur-fast) var(--ease-out),
+        box-shadow   var(--dur-fast) var(--ease-out);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.gpt-option:hover {
+    border-color: var(--color-action);
+    background: rgba(145,0,25,.04);
+}
+
+.gpt-option.is-selected {
+    border-color: var(--color-action);
+    background: rgba(145,0,25,.07);
+    box-shadow: 0 0 0 3px rgba(145,0,25,.12);
+}
+
+.gpt-option-radio {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border: 2px solid var(--color-border);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    transition: border-color var(--dur-fast), background var(--dur-fast);
+    flex-shrink: 0;
+}
+
+.gpt-option.is-selected .gpt-option-radio {
+    border-color: var(--color-action);
+    background: var(--color-action);
+}
+
+.gpt-option.is-selected .gpt-option-radio::after {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.gpt-option-label {
+    font-size: var(--fs-body);
+    font-weight: var(--fw-medium);
+    flex: 1;
+}
+
+/* Keyboard focus */
+.gpt-option:focus-within {
+    outline: 2px solid var(--color-action);
+    outline-offset: 2px;
+}
+
+/* ── 7. Navigation Buttons ────────────────────────────────────────────────── */
+.gpt-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 8px 0 48px;
+    gap: 16px;
+}
+
+.gpt-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 28px;
+    border: none;
+    border-radius: var(--radius-control);
+    font-family: var(--font-primary);
+    font-size: var(--fs-control);
+    font-weight: var(--fw-bold);
+    cursor: pointer;
+    transition:
+        transform var(--dur-fast) var(--ease-out),
+        box-shadow var(--dur-fast) var(--ease-out),
+        background var(--dur-fast);
+    min-height: 48px;        /* touch target */
+    min-width: 120px;
+    text-align: center;
+    justify-content: center;
+}
+
+.gpt-btn:focus-visible {
+    outline: 2px solid var(--color-action);
+    outline-offset: 3px;
+}
+
+.gpt-btn-primary {
+    background: var(--color-action);
+    color: var(--color-action-fg);
+    box-shadow: 0 4px 16px rgba(145,0,25,.22);
+}
+
+.gpt-btn-primary:hover:not(:disabled) {
+    background: var(--color-action-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(145,0,25,.28);
+}
+
+.gpt-btn-primary:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.gpt-btn-secondary {
+    background: transparent;
+    color: var(--color-text-muted);
+    border: 2px solid var(--color-border);
+}
+
+.gpt-btn-secondary:hover:not(:disabled) {
+    border-color: var(--color-action);
+    color: var(--color-action);
+}
+
+.gpt-btn:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+/* ── 8. User Info Form ────────────────────────────────────────────────────── */
+.gpt-user-form-wrap {
+    max-width: 520px;
+    margin: 0 auto;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    padding: 40px;
+}
+
+.gpt-form-heading {
+    font-size: 22px;
+    font-weight: var(--fw-extrabold);
+    color: var(--color-text);
+    margin: 0 0 8px;
+    text-align: center;
+}
+
+.gpt-form-sub {
+    text-align: center;
+    color: var(--color-text-muted);
+    margin-bottom: 32px;
+    font-size: 14px;
+}
+
+.gpt-field {
+    margin-bottom: 20px;
+}
+
+.gpt-label {
+    display: block;
+    font-size: 14px;
+    font-weight: var(--fw-semibold);
+    margin-bottom: 7px;
+    color: var(--color-text);
+}
+
+.gpt-label .gpt-req {
+    color: var(--color-action);
+    margin-right: 3px;
+}
+
+.gpt-input,
+.gpt-select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-control);
+    font-family: var(--font-primary);
+    font-size: var(--fs-body);
+    font-weight: var(--fw-medium);
+    color: var(--color-text);
+    background: var(--color-surface);
+    transition: border-color var(--dur-fast);
+    direction: rtl;
+    text-align: right;
+}
+
+.gpt-input:focus,
+.gpt-select:focus {
+    outline: none;
+    border-color: var(--color-action);
+    box-shadow: 0 0 0 3px rgba(145,0,25,.1);
+}
+
+.gpt-input::placeholder {
+    color: var(--color-text-subtle);
+}
+
+.gpt-field-row {
+    display: flex;
+    gap: 16px;
+}
+
+.gpt-field-row .gpt-field {
+    flex: 1;
+}
+
+.gpt-field-error {
+    font-size: 13px;
+    color: var(--color-error);
+    margin-top: 5px;
+    display: none;
+}
+
+.gpt-field.has-error .gpt-input { border-color: var(--color-error); }
+.gpt-field.has-error .gpt-field-error { display: block; }
+
+/* ── 9. Results Section ───────────────────────────────────────────────────── */
+.gpt-results-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 0;
+}
+
+.gpt-results-heading {
+    text-align: center;
+    font-size: 26px;
+    font-weight: var(--fw-extrabold);
+    margin-bottom: 12px;
+}
+
+.gpt-results-sub {
+    text-align: center;
+    color: var(--color-text-muted);
+    margin-bottom: 48px;
+}
+
+/* Donut Charts Grid */
+.gpt-charts-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    justify-content: center;
+    margin-bottom: 48px;
+}
+
+.gpt-chart-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 200px;
+    flex-shrink: 0;
+}
+
+.gpt-chart-canvas-wrap {
+    position: relative;
+    width: 140px;
+    height: 140px;
+}
+
+.gpt-chart-canvas-wrap canvas {
+    width: 140px !important;
+    height: 140px !important;
+}
+
+.gpt-chart-center-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.gpt-chart-pct {
+    font-size: 22px;
+    font-weight: var(--fw-extrabold);
+    color: var(--color-text);
+    line-height: 1;
+}
+
+.gpt-chart-label-text {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    margin-top: 4px;
+}
+
+.gpt-chart-name {
+    font-size: 14px;
+    font-weight: var(--fw-semibold);
+    text-align: center;
+    color: var(--color-text);
+}
+
+.gpt-chart-interp {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    font-weight: var(--fw-bold);
+    background: rgba(145,0,25,.08);
+    color: var(--color-action);
+}
+
+/* Score summary row */
+.gpt-score-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.gpt-score-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-control);
+    font-size: 14px;
+    font-weight: var(--fw-semibold);
+}
+
+.gpt-score-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* ── 10. Floating CTA ─────────────────────────────────────────────────────── */
+.gpt-floating-cta {
+    position: fixed;
+    bottom: 28px;
+    left: 28px;
+    z-index: 9999;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    background: var(--color-action);
+    color: var(--color-action-fg);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-elevated);
+    text-decoration: none;
+    font-family: var(--font-primary);
+    font-size: var(--fs-control);
+    font-weight: var(--fw-bold);
+    transition:
+        transform var(--dur-base) var(--ease-out),
+        box-shadow var(--dur-base) var(--ease-out),
+        background var(--dur-fast);
+    cursor: pointer;
+    border: none;
+    white-space: nowrap;
+    max-width: calc(100vw - 56px);
+}
+
+.gpt-floating-cta:hover {
+    background: var(--color-action-hover);
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 16px 48px rgba(145,0,25,.28);
+    color: var(--color-action-fg);
+    text-decoration: none;
+}
+
+.gpt-floating-cta:focus-visible {
+    outline: 3px solid var(--color-action);
+    outline-offset: 4px;
+}
+
+.gpt-floating-cta .gpt-icon {
+    flex-shrink: 0;
+}
+
+.gpt-cta-phone {
+    font-size: 13px;
+    opacity: .85;
+    font-weight: var(--fw-medium);
+    direction: ltr;
+    display: inline-block;
+}
+
+/* ── 11. Screen transitions ───────────────────────────────────────────────── */
+.gpt-screen {
+    animation: gptFadeUp var(--dur-slow) var(--ease-out) both;
+}
+
+@keyframes gptFadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── 12. Loading state ────────────────────────────────────────────────────── */
+.gpt-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 48px;
+    color: var(--color-text-muted);
+    font-size: 15px;
+}
+
+.gpt-spinner {
+    width: 22px;
+    height: 22px;
+    border: 2.5px solid var(--color-border);
+    border-top-color: var(--color-action);
+    border-radius: 50%;
+    animation: gptSpin .7s linear infinite;
+}
+
+@keyframes gptSpin { to { transform: rotate(360deg); } }
+
+/* ── 13. Error & notices ──────────────────────────────────────────────────── */
+.gpt-notice {
+    padding: 14px 20px;
+    border-radius: var(--radius-control);
+    font-size: 14px;
+    font-weight: var(--fw-medium);
+    border: 1px solid;
+    margin-bottom: 16px;
+}
+
+.gpt-notice-error   { color: var(--color-error); border-color: rgba(220,38,38,.3); background: rgba(220,38,38,.06); }
+.gpt-notice-success { color: var(--color-success); border-color: rgba(5,150,105,.3); background: rgba(5,150,105,.06); }
+
+/* ── 14. Start screen ─────────────────────────────────────────────────────── */
+.gpt-start-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 48px 24px;
+    gap: 24px;
+}
+
+.gpt-start-icon {
+    width: 72px;
+    height: 72px;
+    background: rgba(145,0,25,.08);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--color-action);
+}
+
+/* ── 15. Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+    .gpt-wrap { padding: 0 20px; }
+}
+
+@media (max-width: 767px) {
+    .gpt-quiz-title { font-size: 22px; }
+    .gpt-question-card { padding: 24px 20px; }
+    .gpt-question-text { font-size: 16px; }
+    .gpt-user-form-wrap { padding: 28px 20px; }
+
+    .gpt-charts-grid { gap: 16px; }
+    .gpt-chart-card  { width: calc(50% - 8px); padding: 20px 16px; }
+
+    .gpt-nav {
+        flex-direction: row-reverse;   /* next on left in mobile RTL */
+        gap: 10px;
+    }
+    .gpt-btn { min-width: auto; flex: 1; }
+
+    /* Mobile: floating CTA becomes full bottom bar */
+    .gpt-floating-cta {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
+        justify-content: center;
+        padding: 16px 24px;
+    }
+
+    .gpt-field-row { flex-direction: column; gap: 0; }
+}
+
+@media (max-width: 479px) {
+    .gpt-chart-card { width: 100%; }
+    .gpt-quiz-title { font-size: 19px; }
+}
+
+/* ── 16. Reduced motion ───────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+    .gpt-progress-fill { transition: none; }
+}
